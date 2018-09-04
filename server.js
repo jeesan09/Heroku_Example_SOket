@@ -13,9 +13,25 @@ const server = express()
 
 const io = socketIO(server);
 
-io.on('connection', (socket) => {
-  console.log('Client connected');
-  socket.on('disconnect', () => console.log('Client disconnected'));
+
+
+io.on('connection',function(socket){
+
+ console.log('connetion made',socket.id);
+
+
+     socket.on('chat', function(data){
+        // console.log(data);
+        io.sockets.emit('chat', data);
+    });
+     
+    // Handle typing event
+    socket.on('typing', function(data){
+        socket.broadcast.emit('typing', data);
+    });
+
+
 });
+
 
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
