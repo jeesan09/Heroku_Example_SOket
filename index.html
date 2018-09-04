@@ -193,6 +193,15 @@ message.addEventListener('keydown',typing_quit );
 // Listen for events
 socket.on('chat', function(data){
 
+
+  if(data.handle==''){
+
+
+    data.handle='speaker';
+
+
+  }
+
   feedback.innerHTML = '';
     output.innerHTML += '<p><strong>' + data.handle + ': </strong>' + data.message + '</p>';
 });      
